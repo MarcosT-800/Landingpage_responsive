@@ -1,40 +1,33 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  mode: "jit",
   theme: {
-    fontFamily: {
-      primary: 'Playfair Display',
-      body: 'Open Sans',
-    },
-    screens: {
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1170px',
-    },
     extend: {
+      fontFamily: {
+        inter: ["Inter", "sans-serif"],
+      },
       colors: {
-        primary: {
-          DEFAULT: '#292A4A',
-          darker: '#242546',
-          hover: '#383956',
+        "black-100": "#2B2C35",
+        "primary-blue": {
+          DEFAULT: "#2B59FF",
+          100: "#F5F8FF",
         },
-
-        accent: {
-          DEFAULT: '#CF9455',
-          hover: '#BB864E',
+        "secondary-orange": "#f79761",
+        "light-white": {
+          DEFAULT: "rgba(59,60,152,0.03)",
+          100: "rgba(59,60,152,0.02)",
         },
-
-        gray: '#766F66',
-        white: '#ffffff',
+        grey: "#747A88",
       },
-      spacing: {
-        54: '54px',
-        800: '800px',
-      },
-
-      content: {
-        quote: 'url("assets/img/quoteMark.png")',
-      },
+      backgroundImage: {
+        'pattern': "url('/pattern.png')",
+        'hero-bg': "url('/hero-bg.png')"
+      }
     },
   },
   plugins: [],
