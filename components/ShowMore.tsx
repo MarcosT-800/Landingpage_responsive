@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 
 import { ShowMoreProps } from "@types";
-import { updateSearchParams } from "@utils";
 import { CustomButton } from "@components";
 
 const ShowMore = ({ pageNumber, isNext }: ShowMoreProps) => {
@@ -14,9 +13,7 @@ const ShowMore = ({ pageNumber, isNext }: ShowMoreProps) => {
     const newLimit = (pageNumber + 1) * 10;
 
     // Update the "limit" search parameter in the URL with the new value
-    const newPathname = updateSearchParams("limit", `${newLimit}`);
     
-    router.push(newPathname);
   };
 
   return (

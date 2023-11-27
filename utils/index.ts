@@ -110,6 +110,22 @@ export const fetchMortalKombatCharacters = async () => {
     },
     // Add more characters as needed
   ];
+  
 
   return characters;
+};
+
+export const updateSearchParams = (params: Record<string, string | number>) => {
+  const searchParams = new URLSearchParams(window.location.search);
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      searchParams.set(key, String(value));
+    } else {
+      searchParams.delete(key);
+    }
+  });
+
+  const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+  window.history.pushState({}, '', newUrl);
 };
