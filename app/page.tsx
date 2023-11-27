@@ -1,55 +1,42 @@
-import { fetchCars } from "@utils";
+import React from 'react';
+import { fetchMortalKombatCharacters } from "@utils";
 import { HomeProps } from "@types";
-import { fuels, yearsOfProduction } from "@constants";
-import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@components";
+import { SearchBar, Hero, ShowMore } from "@components";
+import MortalKombatCharacterCard from "@components/MortalKombatCharactersCard";
 
 export default async function Home({ searchParams }: HomeProps) {
-  const allCars = await fetchCars({
-    manufacturer: searchParams.manufacturer || "",
-    year: searchParams.year || 2022,
-    fuel: searchParams.fuel || "",
-    limit: searchParams.limit || 10,
-    model: searchParams.model || "",
-  });
-
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+  const allCharacters = await fetchMortalKombatCharacters();
+  const isDataEmpty = !Array.isArray(allCharacters) || allCharacters.length < 1 || !allCharacters;
 
   return (
     <main className='overflow-hidden'>
       <Hero />
 
-      <div className='mt-12 padding-x padding-y max-width' id='discover'>
-        <div className='home__text-container'>
-          <h1 className='text-4xl font-extrabold'>Car Catalogue</h1>
-          <p>Explore out cars you might like</p>
+      <div className='mt-0 padding-x padding-y max-width bg-black flex flex-col items-center' id='discover'>
+        <div className='home__text-container text-center'>
+          <h1 className='text-4xl font-extrabold'>Mortal Kombat Characters</h1>
+          <p>Explore the fighters you might like</p>
         </div>
 
-        <div className='home__filters'>
-          <SearchBar />
-
-          <div className='home__filter-container'>
-            <CustomFilter title='fuel' options={fuels} />
-            <CustomFilter title='year' options={yearsOfProduction} />
-          </div>
+        <div className='home__filters mt-4'>
+          {/* <SearchBar /> */}
         </div>
 
         {!isDataEmpty ? (
-          <section>
-            <div className='home__cars-wrapper'>
-              {allCars?.map((car) => (
-                <CarCard car={car} />
+          <section className='w-full'>
+            <div className='home__characters-wrapper flex flex-wrap justify-center'>
+              {allCharacters?.map((character) => (
+                <MortalKombatCharacterCard key={character.id} character={character} />
               ))}
             </div>
 
-            <ShowMore
-              pageNumber={(searchParams.limit || 10) / 10}
-              isNext={(searchParams.limit || 10) > allCars.length}
-            />
+            {/* You can adjust the ShowMore component based on your needs */}
+            {/* For example: <ShowMore pageNumber={...} isNext={...} /> */}
           </section>
         ) : (
-          <div className='home__error-container'>
-            <h2 className='text-black text-xl font-bold'>Oops, no results</h2>
-            <p>{allCars?.message}</p>
+          <div className='home__error-container mt-4 text-center'>
+            <h2 className='text-white text-xl font-bold'>Oops, no results</h2>
+            {/* You can display a more specific error message if needed */}
           </div>
         )}
       </div>

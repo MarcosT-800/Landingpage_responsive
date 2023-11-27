@@ -1,80 +1,115 @@
-import { CarProps, FilterProps } from "@types";
+// @utils/index.ts
 
-export const calculateCarRent = (city_mpg: number, year: number) => {
-  const basePricePerDay = 50; // Base rental price per day in dollars
-  const mileageFactor = 0.1; // Additional rate per mile driven
-  const ageFactor = 0.05; // Additional rate per year of vehicle age
-
-  // Calculate additional rate based on mileage and age
-  const mileageRate = city_mpg * mileageFactor;
-  const ageRate = (new Date().getFullYear() - year) * ageFactor;
-
-  // Calculate total rental rate per day
-  const rentalRatePerDay = basePricePerDay + mileageRate + ageRate;
-
-  return rentalRatePerDay.toFixed(0);
-};
-
-export const updateSearchParams = (type: string, value: string) => {
-  // Get the current URL search params
-  const searchParams = new URLSearchParams(window.location.search);
-
-  // Set the specified search parameter to the given value
-  searchParams.set(type, value);
-
-  // Set the specified search parameter to the given value
-  const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
-
-  return newPathname;
-};
-
-export const deleteSearchParams = (type: string) => {
-  // Set the specified search parameter to the given value
-  const newSearchParams = new URLSearchParams(window.location.search);
-
-  // Delete the specified search parameter
-  newSearchParams.delete(type.toLocaleLowerCase());
-
-  // Construct the updated URL pathname with the deleted search parameter
-  const newPathname = `${window.location.pathname}?${newSearchParams.toString()}`;
-
-  return newPathname;
-};
-
-export async function fetchCars(filters: FilterProps) {
-  const { manufacturer, year, model, limit, fuel } = filters;
-
-  // Set the required headers for the API request
-  const headers: HeadersInit = {
-    "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API_KEY || "",
-    "X-RapidAPI-Host": "cars-by-api-ninjas.p.rapidapi.com",
-  };
-
-  // Set the required headers for the API request
-  const response = await fetch(
-    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
+export const fetchMortalKombatCharacters = async () => {
+  // This is a placeholder. Replace it with your actual logic to fetch Mortal Kombat characters.
+  const characters = [
     {
-      headers: headers,
-    }
-  );
+      id: '1',
+      name: 'Scorpion',
+      image: '/personagens/scorpion.webp',
+      fightingStyle: 'Hellfire Ninja',
+      specialMove: 'Spear Attack',
+    },
+    {
+      id: '2',
+      name: 'Sub-Zero',
+      image: '/personagens/subzero.png',
+      fightingStyle: 'Cryomancer Ninja',
+      specialMove: 'Ice Ball',
+    },
+    {
+      id: '3',
+      name: 'Liu Kang',
+      image: '/personagens/liukang.png',
+      fightingStyle: 'Martial Artist',
+      specialMove: 'Bicycle Kick',
+    },
+    {
+      id: '4',
+      name: 'Raiden',
+      image: '/personagens/raiden.webp',
+      fightingStyle: 'God of Thunder',
+      specialMove: 'Electric Fly',
+    },
+    {
+      id: '5',
+      name: 'Sonya Blade',
+      image: '/personagens/sonyablade.png',
+      fightingStyle: 'Special Forces Officer',
+      specialMove: 'Energy Rings',
+    },
+    {
+      id: '6',
+      name: 'Johnny Cage',
+      image: '/personagens/johnnycage.webp',
+      fightingStyle: 'Hollywood Star',
+      specialMove: 'Shadow Kick',
+    },
+    {
+      id: '7',
+      name: 'Kitana',
+      image: '/personagens/kitana.webp',
+      fightingStyle: 'Edenian Princess',
+      specialMove: 'Fan Throw',
+    },
+    {
+      id: '8',
+      name: 'Kano',
+      image: '/personagens/kano.webp',
+      fightingStyle: 'Black Dragon Mercenary',
+      specialMove: 'Laser Eye',
+    },
+    {
+      id: '9',
+      name: 'Jax Briggs',
+      image: '/personagens/jax.webp',
+      fightingStyle: 'Special Forces Major',
+      specialMove: 'Ground Pound',
+    },
+    {
+      id: '10',
+      name: 'Mileena',
+      image: '/personagens/milena.webp',
+      fightingStyle: 'Edenian Tarkatan Hybrid',
+      specialMove: 'Sai Throw',
+    },
+    {
+      id: '11',
+      name: 'Shang Tsung',
+      image: '/personagens/shangtshung.webp',
+      fightingStyle: 'Sorcerer',
+      specialMove: 'Morph',
+    },
+    {
+      id: '12',
+      name: 'Kung Lao',
+      image: '/personagens/kunglao.png',
+      fightingStyle: 'Martial Artist',
+      specialMove: 'Hat Throw',
+    },
+    {
+      id: '13',
+      name: 'Baraka',
+      image: '/personagens/baraka.webp',
+      fightingStyle: 'Tarkatan Warrior',
+      specialMove: 'Blade Spark',
+    },
+    {
+      id: '14',
+      name: 'Reptile',
+      image: '/personagens/reptile.png',
+      fightingStyle: 'Saurian Warrior',
+      specialMove: 'Force Ball',
+    },
+    {
+      id: '15',
+      name: 'Goro',
+      image: '/personagens/goro.webp',
+      fightingStyle: 'Shokan Prince',
+      specialMove: 'Dragon Fangs',
+    },
+    // Add more characters as needed
+  ];
 
-  // Parse the response as JSON
-  const result = await response.json();
-
-  return result;
-}
-
-export const generateCarImageUrl = (car: CarProps, angle?: string) => {
-  const url = new URL("https://cdn.imagin.studio/getimage");
-  const { make, model, year } = car;
-
-  url.searchParams.append('customer', process.env.NEXT_PUBLIC_IMAGIN_API_KEY || '');
-  url.searchParams.append('make', make);
-  url.searchParams.append('modelFamily', model.split(" ")[0]);
-  url.searchParams.append('zoomType', 'fullscreen');
-  url.searchParams.append('modelYear', `${year}`);
-  // url.searchParams.append('zoomLevel', zoomLevel);
-  url.searchParams.append('angle', `${angle}`);
-
-  return `${url}`;
-} 
+  return characters;
+};
