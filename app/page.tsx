@@ -1,7 +1,7 @@
 import React from 'react';
 import { fetchMortalKombatCharacters } from "@utils";
 import { HomeProps } from "@types";
-import { SearchBar, Hero, ShowMore } from "@components";
+import { Hero, ShowMore } from "@components";
 import MortalKombatCharacterCard from "@components/MortalKombatCharactersCard";
 
 export default async function Home({ searchParams }: HomeProps) {
@@ -14,8 +14,8 @@ export default async function Home({ searchParams }: HomeProps) {
 
       <div className='mt-0 padding-x padding-y max-width bg-black flex flex-col items-center' id='discover'>
         <div className='home__text-container text-center'>
-          <h1 className='text-4xl font-extrabold'>Mortal Kombat Characters</h1>
-          <p>Explore the fighters you might like</p>
+          <h1 className='text-4xl font-extrabold text-white'>Mortal Kombat Characters</h1>
+          <p className="text-white">Explore the fighters you might like</p>
         </div>
 
         <div className='home__filters mt-4'>

@@ -34,7 +34,7 @@ export const fetchMortalKombatCharacters = async () => {
     {
       id: '5',
       name: 'Sonya Blade',
-      image: '/personagens/sonyablade.png',
+      image: '/personagens/sonya.png',
       fightingStyle: 'Special Forces Officer',
       specialMove: 'Energy Rings',
     },
